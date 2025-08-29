@@ -27,7 +27,7 @@ body::before {
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.10; /* fantasma más visible */
-  filter: blur(20px);
+  filter: blur(12px); /* menos blur */
   z-index: -4;
   pointer-events: none;
 }
@@ -43,7 +43,7 @@ body::after {
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.22; /* más visible */
-  filter: invert(1) blur(6px) drop-shadow(0 0 14px rgba(255,0,255,0.28));
+  filter: invert(1) blur(4px) drop-shadow(0 0 14px rgba(255,0,255,0.28)); /* menos blur */
   pointer-events: none;
   z-index: -3;
 }
