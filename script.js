@@ -1,21 +1,21 @@
 // script.js — controlador de pads + reproductor con prev/next
 
 const beats = [
-    { name: "caos", file: "beats/caos.mp3" },
-    { name: "castlevania", file: "beats/castlevania.mp3" },
-    { name: "cibersht", file: "beats/cibersht.mp3" },
-    { name: "elbonito", file: "beats/elbonito.mp3" },
-    { name: "guitarramalgrabada", file: "beats/guitarramalgrabada.mp3" },
-    { name: "malvadote", file: "beats/malvadote.mp3" },
-    { name: "nubes", file: "beats/nubes.mp3" },
-    { name: "rare", file: "beats/rare.mp3" },
-    { name: "reppin", file: "beats/reppin.mp3" },
-    { name: "terror", file: "beats/terror.mp3" },
-    { name: "tranquilón", file: "beats/tranquilón.mp3" },
-    { name: "transmisión", file: "beats/transmisión.mp3" },
-    { name: "trp guitarrón", file: "beats/trp guitarrón.mp3" },
-    { name: "trp sht guitar", file: "beats/trp sht guitar.mp3" },
-    { name: "yerbón", file: "beats/yerbón.mp3" }
+    { name: "Caos", file: "beats/caos.mp3" },
+    { name: "Castlevania", file: "beats/castlevania.mp3" },
+    { name: "Cibersht", file: "beats/cibersht.mp3" },
+    { name: "El Bonito", file: "beats/elbonito.mp3" },
+    { name: "Guitarra Mal Grabada", file: "beats/guitarramalgrabada.mp3" },
+    { name: "Malvadote", file: "beats/malvadote.mp3" },
+    { name: "Nubes", file: "beats/nubes.mp3" },
+    { name: "Rare", file: "beats/rare.mp3" },
+    { name: "Reppin", file: "beats/reppin.mp3" },
+    { name: "Terror", file: "beats/terror.mp3" },
+    { name: "Tranquilon", file: "beats/tranquilon.mp3" },
+    { name: "Transmision", file: "beats/transmision.mp3" },
+    { name: "TRP Guitarron", file: "beats/trpguitarron.mp3" },
+    { name: "TRP SHT Guitar", file: "beats/trpshtguitar.mp3" },
+    { name: "Yerbon", file: "beats/yerbon.mp3" }
 ];
 
 const beatsContainer = document.getElementById('beats-container');
@@ -29,7 +29,7 @@ let currentIndex = 0;
 // Crear pads de beats
 beats.forEach((beat, index) => {
     const col = document.createElement('div');
-    col.classList.add('col-6', 'col-md-3'); // responsive: 2 por fila en móvil, 4 en desktop
+    col.classList.add('col-6', 'col-md-3');
 
     const pad = document.createElement('div');
     pad.classList.add('beat-pad');
@@ -45,7 +45,6 @@ beats.forEach((beat, index) => {
     col.appendChild(pad);
     beatsContainer.appendChild(col);
 
-    // Click y tecla Enter para activar
     pad.addEventListener('click', () => {
         if (currentIndex === index && !player.paused) {
             player.pause();
@@ -68,37 +67,30 @@ function playTrackAt(index) {
     currentIndex = index;
     player.src = beats[currentIndex].file;
 
-    // Intenta reproducir (si el navegador no lo permite, queda en pausa hasta interacción)
     const playPromise = player.play();
     if (playPromise !== undefined) {
-        playPromise.catch(() => {
-            // autoplay bloqueado: no pasa nada, usuario debe dar play manualmente
-        });
+        playPromise.catch(() => { /* autoplay bloqueado */ });
     }
 
     updateCurrentBeatUI();
 }
 
-// Actualiza texto y resaltado del pad activo
+// Actualiza UI
 function updateCurrentBeatUI() {
     currentBeat.textContent = `Reproduciendo: ${beats[currentIndex].name}`;
 
-    // marcar active pad
-    document.querySelectorAll('.beat-pad').forEach((p) => {
-        p.classList.remove('active-pad');
-    });
+    document.querySelectorAll('.beat-pad').forEach(p => p.classList.remove('active-pad'));
     const activePad = document.querySelector(`.beat-pad[data-index="${currentIndex}"]`);
     if (activePad) activePad.classList.add('active-pad');
 }
 
-// Siguiente pista
+// Prev / Next
 function nextTrack() {
     currentIndex++;
     if (currentIndex >= beats.length) currentIndex = 0;
     playTrackAt(currentIndex);
 }
 
-// Anterior pista: clásico behavior
 function prevTrack() {
     if (player.currentTime > 2) {
         player.currentTime = 0;
@@ -114,31 +106,22 @@ function prevTrack() {
 if (prevBtn) prevBtn.addEventListener('click', prevTrack);
 if (nextBtn) nextBtn.addEventListener('click', nextTrack);
 
-// Keyboard shortcuts
+// Atajos de teclado
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') nextTrack();
     if (e.key === 'ArrowLeft') prevTrack();
     if (e.key === ' ' && document.activeElement.tagName !== 'INPUT') {
-        // espacio pausa/reproduce
         e.preventDefault();
-        if (player.paused) player.play();
-        else player.pause();
+        player.paused ? player.play() : player.pause();
     }
 });
 
-// Al terminar pista, ir a la siguiente
-player.addEventListener('ended', () => {
-    nextTrack();
-});
+// Al terminar pista
+player.addEventListener('ended', nextTrack);
 
-// Si el usuario usa los controles del audio directamente (play/pause), actualizar la UI
-player.addEventListener('play', () => {
-    updateCurrentBeatUI();
-});
-player.addEventListener('pause', () => {
-    // no quitar el highlight, sólo actualizar texto si quieres
-});
+// Actualizar UI si usan controles directos
+player.addEventListener('play', updateCurrentBeatUI);
 
-// Inicial: preparar src (no forzar autoplay)
+// Inicial
 player.src = beats[0].file;
 updateCurrentBeatUI();
