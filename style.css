@@ -1,5 +1,5 @@
 /* ============================
-   style.css — Beastie C (logos visibles y botones estilizados)
+   style.css — Beastie C (upgrade móvil final)
    ============================ */
 
 /* Fondo negro base */
@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Marca de agua gigante (fantasma) */
+/* Logos de fondo */
 body::before {
   content: "";
   position: fixed;
@@ -26,13 +26,11 @@ body::before {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.08; /* más visible */
-  filter: blur(24px);
+  opacity: 0.10; /* fantasma más visible */
+  filter: blur(20px);
   z-index: -4;
   pointer-events: none;
 }
-
-/* Logo pequeño en esquina inferior derecha */
 body::after {
   content: "";
   position: fixed;
@@ -44,28 +42,28 @@ body::after {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.18; /* más visible */
-  filter: invert(1) blur(6px) drop-shadow(0 0 12px rgba(255,0,255,0.28));
+  opacity: 0.22; /* más visible */
+  filter: invert(1) blur(6px) drop-shadow(0 0 14px rgba(255,0,255,0.28));
   pointer-events: none;
   z-index: -3;
 }
 
-/* Header colors */
+/* Header */
 header h1 { color: #ff00ff; }
-header p  { color: #9933ff; }
+header p { color: #9933ff; }
 
 /* ========================
-   REPRODUCTOR
+   REPRODUCTOR CENTRAL
    ======================== */
 .player-wrapper {
   position: relative;
   z-index: 8;
   max-width: 600px;
   margin: 40px auto;
-  padding: 22px;
-  background: rgba(0,0,0,0.5);
+  padding: 24px;
+  background: rgba(0,0,0,0.55);
   border-radius: 16px;
-  box-shadow: 0 0 60px rgba(255, 0, 255, 0.22);
+  box-shadow: 0 0 70px rgba(255, 0, 255, 0.24);
   overflow: hidden;
   transition: all 0.3s ease;
 }
@@ -77,16 +75,15 @@ header p  { color: #9933ff; }
   transform: translate(-50%, -50%);
   width: 320px;
   height: auto;
-  opacity: 0.12;
+  opacity: 0.14;
   filter: invert(1) blur(6px) drop-shadow(0 0 30px rgba(255,0,255,0.25)) saturate(120%);
   z-index: 0;
   pointer-events: none;
   transition: opacity 240ms ease, filter 240ms ease;
 }
-
 .player-wrapper:hover > img.player-bg {
-  opacity: 0.16;
-  filter: invert(1) blur(5px) drop-shadow(0 0 40px rgba(255,0,255,0.32)) saturate(140%);
+  opacity: 0.18;
+  filter: invert(1) blur(5px) drop-shadow(0 0 50px rgba(255,0,255,0.35)) saturate(140%);
 }
 
 .player-wrapper audio,
@@ -95,7 +92,7 @@ header p  { color: #9933ff; }
   z-index: 2;
 }
 
-/* Botones prev/next estilizados modernos */
+/* Botones prev/next */
 .control-btn {
   background: #0f0f0f;
   color: #ff00ff;
@@ -107,19 +104,20 @@ header p  { color: #9933ff; }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  box-shadow: 0 0 14px rgba(255,0,255,0.5);
-  transition: all 0.2s ease;
+  box-shadow: 0 0 16px rgba(255,0,255,0.6);
+  transition: all 0.25s ease;
+  margin: 0 12px;
 }
 .control-btn:hover {
   background: #1c1c1c;
-  transform: scale(1.15);
-  box-shadow: 0 0 26px rgba(255,0,255,0.7);
+  transform: scale(1.2);
+  box-shadow: 0 0 30px rgba(255,0,255,0.8);
 }
 
 /* ========================
-   PADS
+   PADS DE BEATS
    ======================== */
 .beat-pad {
   position: relative;
@@ -127,58 +125,72 @@ header p  { color: #9933ff; }
   background-color: #000;
   color: #fff;
   padding: 18px 14px;
-  margin-bottom: 14px;
-  border-radius: 8px;
+  margin-bottom: 16px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.18s, color 0.18s, transform 0.12s;
+  transition: background-color 0.18s, color 0.18s, transform 0.15s, box-shadow 0.2s;
   text-align: center;
   user-select: none;
-  box-shadow: 0 0 10px rgba(255, 0, 255,0.06);
+  box-shadow: 0 0 14px rgba(255,0,255,0.08);
 }
-.beat-pad:hover { background-color: #141414; color: #ff00ff; transform: translateY(-3px); }
-.active-pad { outline: 2px solid rgba(255,0,255,0.14); transform: translateY(-4px); box-shadow: 0 6px 30px rgba(255,0,255,0.06); }
-.beat-pad .beat-title { font-weight: 600; letter-spacing: 0.2px; }
+.beat-pad:hover {
+  background-color: #1c1c1c;
+  color: #ff00ff;
+  transform: translateY(-4px);
+  box-shadow: 0 0 28px rgba(255,0,255,0.18);
+}
+.active-pad {
+  outline: 2px solid rgba(255,0,255,0.18);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 36px rgba(255,0,255,0.1);
+}
+.beat-pad .beat-title {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
 
-/* ====================
+/* ========================
    BOTONES STREAMING / CONTACTO
-   ==================== */
+   ======================== */
 .btn-success { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-danger  { background-color: #9933ff; border-color: #9933ff; color: #000; }
 .btn-info    { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-warning { background-color: #9933ff; border-color: #9933ff; color: #000; }
-
-.btn-success:hover,
-.btn-danger:hover,
-.btn-info:hover,
-.btn-warning:hover { opacity: 0.95; }
+.btn-success:hover, .btn-danger:hover, .btn-info:hover, .btn-warning:hover { opacity: 0.95; }
 
 #current-beat { color: #ff00ff; font-size: 1.06rem; margin-top: 12px; font-weight: 600; text-align: center; }
 
-/* ====================
+/* ========================
    RESPONSIVE
-   ==================== */
+   ======================== */
 @media (max-width: 768px) {
-  .player-wrapper { max-width: 95%; padding: 18px; margin: 20px auto; }
-  .player-wrapper > img.player-bg { width: 220px; opacity: 0.12; filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28)); }
-  .beat-pad { padding: 14px; margin-bottom: 12px; }
+  .player-wrapper { max-width: 95%; padding: 20px; margin: 20px auto; }
+  .player-wrapper > img.player-bg { width: 220px; opacity: 0.14; }
+  .beat-pad { padding: 16px; margin-bottom: 14px; }
 }
 
 @media (max-width: 480px) {
-  .player-wrapper > img.player-bg { width: 180px; opacity: 0.11; }
-  .beat-pad { padding: 12px; font-size: 0.95rem; }
+  .player-wrapper > img.player-bg { width: 180px; opacity: 0.16; }
+  .beat-pad { padding: 14px; font-size: 1rem; margin-bottom: 14px; }
 
   section.text-center a.btn {
     display: block !important;
-    width: 85%;
-    margin: 10px auto !important;
+    width: 90%;
+    margin: 12px auto !important;
+    font-size: 1.05rem;
   }
 
-  .control-btn { width: 45px; height: 45px; font-size: 1.15rem; }
+  .control-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    margin: 0 10px;
+  }
 }
 
 @media (max-width: 420px) {
-  .player-wrapper > img.player-bg { width: 170px; opacity: 0.1; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
-  .beat-pad { padding: 12px; font-size: 0.9rem; }
-  section.text-center a.btn { width: 90%; font-size: 0.9rem; margin: 8px auto !important; }
-  .control-btn { width: 40px; height: 40px; font-size: 1.05rem; }
+  .player-wrapper > img.player-bg { width: 160px; opacity: 0.18; }
+  .beat-pad { padding: 12px; font-size: 0.95rem; margin-bottom: 12px; }
+  section.text-center a.btn { width: 95%; font-size: 0.95rem; margin: 8px auto !important; }
+  .control-btn { width: 44px; height: 44px; font-size: 1.15rem; }
 }
