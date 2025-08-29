@@ -1,8 +1,10 @@
 /* ============================
-   style.css — final optimizado para Beastie C
+   style.css — Beastie C optimizado
    ============================ */
 
-/* Fondo negro base */
+/* -----------------------------
+   FONDO BASE
+   ----------------------------- */
 body {
   background-color: #000;
   color: #fff;
@@ -13,7 +15,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Marca de agua gigante y muy sutil (opcional) */
+/* Marca de agua gigante y muy sutil */
 body::before {
   content: "";
   position: fixed;
@@ -32,7 +34,7 @@ body::before {
   pointer-events: none;
 }
 
-/* Logo pequeño en esquina inferior derecha (sutil) */
+/* Logo pequeño en esquina inferior derecha */
 body::after {
   content: "";
   position: fixed;
@@ -51,12 +53,12 @@ body::after {
 }
 
 /* Header colors */
-header h1 { color: #ff00ff; } /* magenta */
-header p  { color: #9933ff; } /* morado */
+header h1 { color: #ff00ff; }
+header p  { color: #9933ff; }
 
-/* ================
-   REPRODUCTOR (wrapper)
-   ================ */
+/* -----------------------------
+   REPRODUCTOR
+   ----------------------------- */
 .player-wrapper {
   position: relative;
   z-index: 8;
@@ -69,7 +71,6 @@ header p  { color: #9933ff; } /* morado */
   overflow: hidden;
 }
 
-/* Imagen dentro del wrapper */
 .player-wrapper > img.player-bg {
   position: absolute;
   top: 50%;
@@ -95,7 +96,7 @@ header p  { color: #9933ff; } /* morado */
   filter: invert(1) blur(5px) drop-shadow(0 0 40px rgba(255,0,255,0.32)) saturate(140%);
 }
 
-/* Control prev/next botones */
+/* Control prev/next */
 .control-btn {
   background: #000;
   color: #fff;
@@ -114,44 +115,34 @@ header p  { color: #9933ff; } /* morado */
   transform: translateY(-2px);
 }
 
-/* ================
-   PADS (rectángulos interactivos)
-   ================ */
-.beats-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin: 0 auto;
-  max-width: 95%;
-}
-
+/* -----------------------------
+   PADS
+   ----------------------------- */
 .beat-pad {
   position: relative;
   z-index: 20;
   background-color: #000;
   color: #fff;
-  padding: 18px 14px;
-  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.18s, color 0.18s, transform 0.12s;
   text-align: center;
   user-select: none;
   box-shadow: 0 0 10px rgba(255, 0, 255, 0.06);
-  flex: 1 1 150px; /* ancho base de cada pad, ajustable */
-  max-width: 200px;
 }
 
 .beat-pad:hover {
   background-color: #141414;
   color: #ff00ff;
-  transform: translateY(-3px);
+  transform: translateY(-0.2rem);
 }
 
 .active-pad {
   outline: 2px solid rgba(255,0,255,0.14);
-  transform: translateY(-4px);
-  box-shadow: 0 6px 30px rgba(255,0,255,0.06);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.4rem 1.875rem rgba(255,0,255,0.06);
 }
 
 .beat-pad .beat-title {
@@ -159,9 +150,26 @@ header p  { color: #9933ff; } /* morado */
   letter-spacing: 0.2px;
 }
 
-/* ====================
+/* -----------------------------
    BOTONES STREAMING / CONTACTO
-   ==================== */
+   ----------------------------- */
+.btns-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem; /* 10px */
+  margin: 1.25rem auto;
+}
+
+.btns-wrapper a {
+  flex: 1 1 120px;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
 .btn-success { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-danger  { background-color: #9933ff; border-color: #9933ff; color: #000; }
 .btn-info    { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
@@ -174,24 +182,37 @@ header p  { color: #9933ff; } /* morado */
   opacity: 0.95;
 }
 
+/* Texto del beat actual */
 #current-beat {
   color: #ff00ff;
   font-size: 1.06rem;
-  margin-top: 12px;
+  margin-top: 0.75rem;
   font-weight: 600;
   text-align: center;
 }
 
-/* ====================
+/* -----------------------------
    MEDIA QUERIES
-   ==================== */
+   ----------------------------- */
 @media (max-width: 768px) {
-  .player-wrapper { max-width: 95%; padding: 14px; margin: 20px auto; }
-  .player-wrapper > img.player-bg { width: 220px; filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28)); opacity: 0.09; }
-  .beat-pad { padding: 14px; font-size: 0.95rem; flex: 1 1 45%; }
+  .player-wrapper { max-width: 95%; padding: 0.875rem; margin: 1.25rem auto; }
+  .player-wrapper > img.player-bg {
+    width: 220px;
+    filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28));
+    opacity: 0.09;
+  }
+  .beat-pad { padding: 0.875rem; margin-bottom: 0.75rem; }
 }
 
 @media (max-width: 480px) {
-  .player-wrapper > img.player-bg { width: 170px; opacity: 0.07; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
-  .beat-pad { padding: 12px; font-size: 0.9rem; flex: 1 1 100%; max-width: 100%; }
+  .player-wrapper > img.player-bg {
+    width: 170px;
+    opacity: 0.07;
+    filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22));
+  }
+  .beat-pad { padding: 0.75rem; font-size: 0.95rem; }
+  .btns-wrapper a {
+    flex: 1 1 100%;
+    font-size: 0.95rem;
+  }
 }
