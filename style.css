@@ -1,5 +1,5 @@
 /* ============================
-   style.css — Beastie C (upgrade móvil final)
+   style.css — Beastie C (final logos sin negativo)
    ============================ */
 
 /* Fondo negro base */
@@ -43,7 +43,7 @@ body::after {
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.22; /* más visible */
-  filter: invert(1) blur(4px) drop-shadow(0 0 14px rgba(255,0,255,0.28)); /* menos blur */
+  filter: blur(4px) drop-shadow(0 0 14px rgba(255,0,255,0.28)); /* menos blur y sin invertir */
   pointer-events: none;
   z-index: -3;
 }
