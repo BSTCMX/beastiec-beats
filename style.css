@@ -1,10 +1,8 @@
 /* ============================
-   style.css — Beastie C optimizado
+   style.css — Beastie C Optimizado
    ============================ */
 
-/* -----------------------------
-   FONDO BASE
-   ----------------------------- */
+/* Fondo negro base */
 body {
   background-color: #000;
   color: #fff;
@@ -13,9 +11,10 @@ body {
   padding: 0;
   position: relative;
   overflow-x: hidden;
+  font-size: 1rem; /* base rem */
 }
 
-/* Marca de agua gigante y muy sutil */
+/* Marca de agua gigante y sutil */
 body::before {
   content: "";
   position: fixed;
@@ -38,36 +37,36 @@ body::before {
 body::after {
   content: "";
   position: fixed;
-  bottom: 10px;
-  right: 10px;
-  width: 150px;
-  height: 150px;
+  bottom: 1rem;
+  right: 1rem;
+  width: 8rem;
+  height: 8rem;
   background-image: url('img/raccrecc.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.14;
-  filter: blur(6px) drop-shadow(0 0 12px rgba(255,0,255,0.28));
+  filter: blur(6px) drop-shadow(0 0 0.75rem rgba(255,0,255,0.28));
   pointer-events: none;
   z-index: -3;
 }
 
 /* Header colors */
-header h1 { color: #ff00ff; }
-header p  { color: #9933ff; }
+header h1 { color: #ff00ff; font-size: 2rem; }
+header p  { color: #9933ff; font-size: 1.2rem; }
 
-/* -----------------------------
-   REPRODUCTOR
-   ----------------------------- */
+/* ==============================
+   REPRODUCTOR (wrapper)
+   ============================== */
 .player-wrapper {
   position: relative;
   z-index: 8;
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 18px;
+  max-width: 37.5rem; /* 600px -> rem */
+  margin: 2.5rem auto;
+  padding: 1.125rem;
   background: rgba(0,0,0,0.45);
-  border-radius: 12px;
-  box-shadow: 0 0 40px rgba(255, 0, 255, 0.18);
+  border-radius: 0.75rem;
+  box-shadow: 0 0 2.5rem rgba(255,0,255,0.18);
   overflow: hidden;
 }
 
@@ -76,10 +75,10 @@ header p  { color: #9933ff; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 320px;
+  width: 20rem; /* 320px -> rem */
   height: auto;
   opacity: 0.12;
-  filter: invert(1) blur(6px) drop-shadow(0 0 30px rgba(255,0,255,0.25)) saturate(120%);
+  filter: invert(1) blur(0.375rem) drop-shadow(0 0 1.875rem rgba(255,0,255,0.25)) saturate(120%);
   z-index: 0;
   pointer-events: none;
   transition: opacity 240ms ease, filter 240ms ease;
@@ -93,56 +92,57 @@ header p  { color: #9933ff; }
 
 .player-wrapper:hover > img.player-bg {
   opacity: 0.16;
-  filter: invert(1) blur(5px) drop-shadow(0 0 40px rgba(255,0,255,0.32)) saturate(140%);
+  filter: invert(1) blur(0.3125rem) drop-shadow(0 0 2.5rem rgba(255,0,255,0.32)) saturate(140%);
 }
 
-/* Control prev/next */
+/* Control prev/next botones */
 .control-btn {
   background: #000;
   color: #fff;
-  border: 1px solid #444;
-  width: 40px;
-  height: 36px;
-  border-radius: 6px;
+  border: 0.0625rem solid #444;
+  width: 2.5rem;
+  height: 2.25rem;
+  border-radius: 0.375rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.12s, transform 0.08s;
 }
+
 .control-btn:hover {
   background: #111;
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
 }
 
-/* -----------------------------
-   PADS
-   ----------------------------- */
+/* ==============================
+   PADS (beats interactivos)
+   ============================== */
 .beat-pad {
   position: relative;
   z-index: 20;
   background-color: #000;
   color: #fff;
-  padding: 1rem;
-  margin-bottom: 0.75rem;
+  padding: 1.125rem 0.875rem;
+  margin-bottom: 0.875rem;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.18s, color 0.18s, transform 0.12s;
   text-align: center;
   user-select: none;
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.06);
+  box-shadow: 0 0 0.625rem rgba(255, 0, 255, 0.06);
 }
 
 .beat-pad:hover {
   background-color: #141414;
   color: #ff00ff;
-  transform: translateY(-0.2rem);
+  transform: translateY(-0.1875rem);
 }
 
 .active-pad {
-  outline: 2px solid rgba(255,0,255,0.14);
+  outline: 0.125rem solid rgba(255,0,255,0.14);
   transform: translateY(-0.25rem);
-  box-shadow: 0 0.4rem 1.875rem rgba(255,0,255,0.06);
+  box-shadow: 0 0.375rem 1.875rem rgba(255,0,255,0.06);
 }
 
 .beat-pad .beat-title {
@@ -150,26 +150,9 @@ header p  { color: #9933ff; }
   letter-spacing: 0.2px;
 }
 
-/* -----------------------------
+/* ==============================
    BOTONES STREAMING / CONTACTO
-   ----------------------------- */
-.btns-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.625rem; /* 10px */
-  margin: 1.25rem auto;
-}
-
-.btns-wrapper a {
-  flex: 1 1 120px;
-  text-align: center;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-}
-
+   ============================== */
 .btn-success { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-danger  { background-color: #9933ff; border-color: #9933ff; color: #000; }
 .btn-info    { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
@@ -182,7 +165,7 @@ header p  { color: #9933ff; }
   opacity: 0.95;
 }
 
-/* Texto del beat actual */
+/* Texto del beat actual (reproductor) */
 #current-beat {
   color: #ff00ff;
   font-size: 1.06rem;
@@ -191,28 +174,25 @@ header p  { color: #9933ff; }
   text-align: center;
 }
 
-/* -----------------------------
-   MEDIA QUERIES
-   ----------------------------- */
+/* ==============================
+   RESPONSIVE / MÓVIL
+   ============================== */
 @media (max-width: 768px) {
   .player-wrapper { max-width: 95%; padding: 0.875rem; margin: 1.25rem auto; }
-  .player-wrapper > img.player-bg {
-    width: 220px;
-    filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28));
-    opacity: 0.09;
-  }
-  .beat-pad { padding: 0.875rem; margin-bottom: 0.75rem; }
+  .player-wrapper > img.player-bg { width: 13.75rem; filter: invert(1) blur(0.3125rem) drop-shadow(0 0 1.375rem rgba(255,0,255,0.28)); opacity: 0.09; }
+  .beat-pad { padding: 0.875rem 0.75rem; margin-bottom: 0.75rem; }
 }
 
 @media (max-width: 480px) {
-  .player-wrapper > img.player-bg {
-    width: 170px;
-    opacity: 0.07;
-    filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22));
-  }
-  .beat-pad { padding: 0.75rem; font-size: 0.95rem; }
-  .btns-wrapper a {
-    flex: 1 1 100%;
-    font-size: 0.95rem;
+  .player-wrapper > img.player-bg { width: 10.625rem; opacity: 0.07; filter: invert(1) blur(0.25rem) drop-shadow(0 0 1.125rem rgba(255,0,255,0.22)); }
+  .beat-pad { padding: 0.75rem 0.625rem; font-size: 0.95rem; }
+
+  /* Botones streaming / contacto grandes y centrados */
+  section.text-center > a.btn {
+    display: block;
+    width: 90%;
+    margin: 0.375rem auto;
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
   }
 }
