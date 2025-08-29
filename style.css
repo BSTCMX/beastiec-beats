@@ -1,5 +1,5 @@
 /* ============================
-   style.css — Beastie C final
+   style.css — Beastie C (optimizado)
    ============================ */
 
 /* Fondo negro base */
@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Marca de agua gigante y sutil (fantasma) */
+/* Logo fantasma al fondo */
 body::before {
   content: "";
   position: fixed;
@@ -26,13 +26,13 @@ body::before {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.03; /* fantasma original */
-  filter: blur(24px);
+  opacity: 0.06; /* un poco más visible */
+  filter: blur(20px);
   z-index: -4;
   pointer-events: none;
 }
 
-/* Logo pequeño en esquina inferior derecha */
+/* Logo esquina inferior derecha */
 body::after {
   content: "";
   position: fixed;
@@ -44,19 +44,19 @@ body::after {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.14; /* original */
+  opacity: 0.2; /* más visible */
   filter: blur(6px) drop-shadow(0 0 12px rgba(255,0,255,0.28));
   pointer-events: none;
   z-index: -3;
 }
 
 /* Header colors */
-header h1 { color: #ff00ff; }
-header p  { color: #9933ff; }
+header h1 { color: #ff00ff; } /* magenta */
+header p  { color: #9933ff; } /* morado */
 
-/* ================
-   REPRODUCTOR (wrapper)
-   ================ */
+/* ============================
+   REPRODUCTOR CENTRAL
+   ============================ */
 .player-wrapper {
   position: relative;
   z-index: 8;
@@ -88,36 +88,40 @@ header p  { color: #9933ff; }
   filter: invert(1) blur(5px) drop-shadow(0 0 40px rgba(255,0,255,0.32)) saturate(140%);
 }
 
-/* Control prev/next botones */
+.player-wrapper audio,
+.player-wrapper #player {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================
+   BOTONES ◀ ▶ ESTILIZADOS
+   ============================ */
 .control-btn {
-  background: #222;
+  background: #111;
   color: #ff00ff;
-  border: 1px solid #444;
-  width: 44px;
-  height: 40px;
-  border-radius: 8px;
+  border: 1px solid #ff00ff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.25rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.12s, transform 0.08s, box-shadow 0.18s;
-  font-weight: 700;
-  font-size: 1.2rem;
+  box-shadow: 0 0 14px rgba(255,0,255,0.5);
+  transition: all 0.18s ease;
 }
+
 .control-btn:hover {
-  background: #111;
   transform: translateY(-2px);
-  box-shadow: 0 0 12px rgba(255,0,255,0.4);
+  box-shadow: 0 0 26px rgba(255,0,255,0.8);
+  background: #222;
 }
 
-audio {
-  width: 100%;
-  margin: 0 8px;
-}
-
-/* ====================
-   PADS
-   ==================== */
+/* ============================
+   PADS (BEATS)
+   ============================ */
 .beat-pad {
   position: relative;
   z-index: 20;
@@ -150,9 +154,9 @@ audio {
   letter-spacing: 0.2px;
 }
 
-/* ====================
-   BOTONES STREAMING
-   ==================== */
+/* ============================
+   BOTONES STREAMING / CONTACTO
+   ============================ */
 .btn-success { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-danger  { background-color: #9933ff; border-color: #9933ff; color: #000; }
 .btn-info    { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
@@ -161,8 +165,13 @@ audio {
 .btn-success:hover,
 .btn-danger:hover,
 .btn-info:hover,
-.btn-warning:hover { opacity: 0.95; }
+.btn-warning:hover {
+  opacity: 0.95;
+}
 
+/* ============================
+   TEXTO DEL BEAT ACTUAL
+   ============================ */
 #current-beat {
   color: #ff00ff;
   font-size: 1.06rem;
@@ -171,46 +180,38 @@ audio {
   text-align: center;
 }
 
-/* ====================
-   RESPONSIVE
-   ==================== */
-@media (max-width: 768px) {
-  .player-wrapper { max-width: 95%; padding: 14px; margin: 20px auto; }
-  .player-wrapper > img.player-bg { width: 220px; filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28)); opacity: 0.12; }
-  .beat-pad { padding: 14px; margin-bottom: 12px; }
-  section.text-center a.btn { display: block !important; width: 90% !important; margin: 6px auto !important; }
-}
-
-@media (max-width: 480px) {
-  .player-wrapper > img.player-bg { width: 180px; opacity: 0.10; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
-  .beat-pad { padding: 12px; font-size: 0.95rem; }
-  section.text-center a.btn { width: 95% !important; font-size: 0.92rem; margin: 6px auto !important; }
-}
-
-/* ========================
+/* ============================
    PERSONALIZAR BARRA DE AUDIO
-   ======================== */
-
-/* Chrome, Safari, Opera */
+   ============================ */
 audio::-webkit-media-controls-panel {
     background: rgba(20,20,20,0.85) !important;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(255,0,255,0.25);
 }
-audio::-webkit-media-controls-timeline {
-    background: #333 !important;
-    border-radius: 6px;
-}
-audio::-webkit-media-controls-thumb {
-    background: #ff00ff !important;
-    border-radius: 50%;
-    width: 14px;
-    height: 14px;
-}
+audio::-webkit-media-controls-timeline { background: #333 !important; border-radius: 6px; }
+audio::-webkit-media-controls-thumb { background: #ff00ff !important; border-radius: 50%; width: 14px; height: 14px; }
 audio::-webkit-media-controls-play-button,
-audio::-webkit-media-controls-pause-button {
-    background-color: #ff00ff !important;
-    border-radius: 50%;
-}
+audio::-webkit-media-controls-pause-button { background-color: #ff00ff !important; border-radius: 50%; }
 audio::-moz-range-track { background: #333; }
 audio::-moz-range-thumb { background: #ff00ff; border-radius: 50%; }
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+@media (max-width: 768px) {
+  .player-wrapper { max-width: 95%; padding: 14px; margin: 20px auto; }
+  .player-wrapper > img.player-bg { width: 220px; opacity: 0.12; filter: invert(1) blur(5px) drop-shadow(0 0 26px rgba(255,0,255,0.28)); }
+  .beat-pad { padding: 14px; margin-bottom: 12px; }
+}
+
+@media (max-width: 480px) {
+  .player-wrapper > img.player-bg { width: 180px; opacity: 0.12; filter: invert(1) blur(4px) drop-shadow(0 0 20px rgba(255,0,255,0.22)); }
+  .beat-pad { padding: 12px; font-size: 0.95rem; }
+  /* Streaming buttons stacked */
+  section.text-center a.btn {
+      display: block !important;
+      width: 90%;
+      margin: 6px auto !important;
+      font-size: 0.95rem;
+  }
+}
