@@ -1,5 +1,5 @@
 /* ============================
-   style.css — Beastie C Optimizado y Moderno
+   style.css — Beastie C Optimizado
    ============================ */
 
 /* Fondo negro base */
@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Logos de fondo */
+/* Marca de agua gigante y muy sutil (efecto fantasma) */
 body::before {
   content: "";
   position: fixed;
@@ -31,6 +31,8 @@ body::before {
   z-index: -4;
   pointer-events: none;
 }
+
+/* Logo pequeño en esquina inferior derecha */
 body::after {
   content: "";
   position: fixed;
@@ -48,12 +50,12 @@ body::after {
   z-index: -3;
 }
 
-/* Header */
-header h1 { color: #ff00ff; }
+/* Header colors */
+header h1 { color: #ff00ff; } 
 header p  { color: #9933ff; }
 
 /* ==============================
-   REPRODUCTOR
+   REPRODUCTOR (wrapper)
    ============================== */
 .player-wrapper {
   position: relative;
@@ -66,6 +68,7 @@ header p  { color: #9933ff; }
   box-shadow: 0 0 40px rgba(255, 0, 255, 0.18);
   overflow: hidden;
 }
+
 .player-wrapper > img.player-bg {
   position: absolute;
   top: 50%;
@@ -79,12 +82,17 @@ header p  { color: #9933ff; }
   pointer-events: none;
   transition: opacity 240ms ease, filter 240ms ease;
 }
+
 .player-wrapper:hover > img.player-bg {
   opacity: 0.16;
   filter: invert(1) blur(5px) drop-shadow(0 0 40px rgba(255,0,255,0.32)) saturate(140%);
 }
+
 .player-wrapper audio,
-.player-wrapper #player { position: relative; z-index: 2; }
+.player-wrapper #player {
+  position: relative;
+  z-index: 2;
+}
 
 /* ============================
    PERSONALIZAR BARRA DE AUDIO
@@ -104,47 +112,46 @@ audio::-webkit-media-controls-pause-button {
 audio::-moz-range-track { background: #333; }
 audio::-moz-range-thumb { background: #ff00ff; border-radius: 50%; }
 
-/* ============================
-   BOTONES PREV/NEXT MODERNOS
-   ============================ */
+/* Control prev/next botones con doble flecha y glow */
 .control-btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid #ff00ff;
-  background: rgba(0,0,0,0.6);
-  color: #ff00ff;
-  font-size: 1.3rem;
-  font-weight: bold;
-  display: flex;
+  background: #000;
+  color: #fff;
+  border: 1px solid #444;
+  width: 40px;
+  height: 36px;
+  border-radius: 6px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 0 12px rgba(255,0,255,0.25);
-}
-.control-btn:hover {
-  background: rgba(0,0,0,0.8);
-  transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(255,0,255,0.6);
+  transition: background 0.12s, transform 0.08s, box-shadow 0.18s;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 0 12px rgba(255,0,255,0.18);
 }
 
-/* Doble flecha con pseudo-elementos */
+.control-btn:hover {
+  background: #111;
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(255,0,255,0.28);
+}
+
+/* Doble flecha */
 #next-btn::after {
     content: '▶';
     position: absolute;
     left: 50%;
-    transform: translateX(8px);
-    font-size: 0.85em;
+    transform: translateX(6px);
+    font-size: 0.95em;
     color: inherit;
 }
 #prev-btn::before {
     content: '◀';
     position: absolute;
     right: 50%;
-    transform: translateX(-8px);
-    font-size: 0.85em;
+    transform: translateX(-6px);
+    font-size: 0.95em;
     color: inherit;
 }
 
@@ -163,7 +170,7 @@ audio::-moz-range-thumb { background: #ff00ff; border-radius: 50%; }
   transition: background-color 0.18s, color 0.18s, transform 0.12s;
   text-align: center;
   user-select: none;
-  box-shadow: 0 0 10px rgba(255, 0, 255,0.06);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.06);
 }
 .beat-pad:hover {
   background-color: #141414;
@@ -188,9 +195,18 @@ audio::-moz-range-thumb { background: #ff00ff; border-radius: 50%; }
 .btn-success:hover,
 .btn-danger:hover,
 .btn-info:hover,
-.btn-warning:hover { opacity: 0.95; }
+.btn-warning:hover {
+  opacity: 0.95;
+}
 
-#current-beat { color: #ff00ff; font-size: 1.06rem; margin-top: 12px; font-weight: 600; text-align: center; }
+/* Texto del beat actual */
+#current-beat {
+  color: #ff00ff;
+  font-size: 1.06rem;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: center;
+}
 
 /* ====================
    RESPONSIVE
@@ -206,9 +222,11 @@ audio::-moz-range-thumb { background: #ff00ff; border-radius: 50%; }
 }
 
 @media (max-width: 480px) {
+  /* Pads y reproductor */
   .beat-pad { padding: 12px; font-size: 0.95rem; }
   .player-wrapper > img.player-bg { width: 170px; opacity: 0.07; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
 
+  /* Streaming links como bloques */
   section.text-center a.btn { 
     display: block !important; 
     width: 80% !important; 
