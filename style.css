@@ -1,5 +1,5 @@
 /* ============================
-   style.css — Beastie C Optimizado
+   style.css — final para Beastie C (optimizado móvil)
    ============================ */
 
 /* Fondo negro base */
@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Marca de agua gigante (efecto fantasma) */
+/* Marca de agua gigante y muy sutil (efecto fantasma) */
 body::before {
   content: "";
   position: fixed;
@@ -26,8 +26,8 @@ body::before {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.015; /* menos intensa */
-  filter: blur(20px);
+  opacity: 0.05; /* un poco más visible */
+  filter: blur(24px);
   z-index: -4;
   pointer-events: none;
 }
@@ -44,7 +44,7 @@ body::after {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.09; /* menos intenso */
+  opacity: 0.10; /* menos que antes */
   filter: blur(6px) drop-shadow(0 0 12px rgba(255,0,255,0.28));
   pointer-events: none;
   z-index: -3;
@@ -54,10 +54,12 @@ body::after {
 header h1 { color: #ff00ff; } /* magenta */
 header p  { color: #9933ff; } /* morado */
 
-/* Reproductor central */
+/* ================
+   REPRODUCTOR (wrapper)
+   ================ */
 .player-wrapper {
   position: relative;
-  z-index: 8;
+  z-index: 8;                 
   max-width: 600px;
   margin: 40px auto;
   padding: 18px;
@@ -67,6 +69,7 @@ header p  { color: #9933ff; } /* morado */
   overflow: hidden;
 }
 
+/* Imagen dentro del wrapper */
 .player-wrapper > img.player-bg {
   position: absolute;
   top: 50%;
@@ -81,6 +84,7 @@ header p  { color: #9933ff; } /* morado */
   transition: opacity 240ms ease, filter 240ms ease;
 }
 
+/* Audio y controles encima */
 .player-wrapper audio,
 .player-wrapper #player {
   position: relative;
@@ -106,9 +110,14 @@ header p  { color: #9933ff; } /* morado */
   cursor: pointer;
   transition: background 0.12s, transform 0.08s;
 }
-.control-btn:hover { background: #111; transform: translateY(-2px); }
+.control-btn:hover {
+  background: #111;
+  transform: translateY(-2px);
+}
 
-/* Pads interactivos */
+/* ================
+   PADS (rectángulos interactivos)
+   ================ */
 .beat-pad {
   position: relative;
   z-index: 20;
@@ -123,19 +132,27 @@ header p  { color: #9933ff; } /* morado */
   user-select: none;
   box-shadow: 0 0 10px rgba(255, 0, 255, 0.06);
 }
+
 .beat-pad:hover {
   background-color: #141414;
   color: #ff00ff;
   transform: translateY(-3px);
 }
+
 .active-pad {
   outline: 2px solid rgba(255,0,255,0.14);
   transform: translateY(-4px);
   box-shadow: 0 6px 30px rgba(255,0,255,0.06);
 }
-.beat-pad .beat-title { font-weight: 600; letter-spacing: 0.2px; }
 
-/* Botones streaming / contacto */
+.beat-pad .beat-title {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* ====================
+   BOTONES STREAMING / CONTACTO
+   ==================== */
 .btn-success { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-danger  { background-color: #9933ff; border-color: #9933ff; color: #000; }
 .btn-info    { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
@@ -144,29 +161,44 @@ header p  { color: #9933ff; } /* morado */
 .btn-success:hover,
 .btn-danger:hover,
 .btn-info:hover,
-.btn-warning:hover { opacity: 0.95; }
+.btn-warning:hover {
+  opacity: 0.95;
+}
 
-#current-beat { color: #ff00ff; font-size: 1.06rem; margin-top: 12px; font-weight: 600; text-align: center; }
+#current-beat {
+  color: #ff00ff;
+  font-size: 1.06rem;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: center;
+}
 
-/* ========================
-   Media Queries para móviles
-   ======================== */
+/* ====================
+   RESPONSIVE
+   ==================== */
 @media (max-width: 768px) {
   .player-wrapper { max-width: 95%; padding: 14px; margin: 20px auto; }
-  .player-wrapper > img.player-bg { width: 220px; opacity: 0.09; filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28)); }
+  .player-wrapper > img.player-bg {
+    width: 220px;
+    filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28));
+    opacity: 0.09;
+  }
   .beat-pad { padding: 14px; margin-bottom: 12px; }
 }
 
 @media (max-width: 480px) {
-  .player-wrapper > img.player-bg { width: 170px; opacity: 0.07; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
+  .player-wrapper > img.player-bg { width: 180px; opacity: 0.08; }
   .beat-pad { padding: 12px; font-size: 0.95rem; }
-
-  /* Forzar botones de streaming / contacto a bloque */
+  /* botones streaming en móvil: full width y espacio vertical */
   section.text-center a.btn {
     display: block !important;
-    width: 90% !important;
-    margin: 6px auto !important;
-    font-size: 1.05rem !important;
-    padding: 10px 0 !important;
+    width: 90%;
+    margin: 8px auto !important;
   }
+}
+
+@media (max-width: 420px) {
+  .player-wrapper > img.player-bg { width: 170px; opacity: 0.07; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
+  .beat-pad { padding: 12px; font-size: 0.9rem; }
+  section.text-center a.btn { width: 95%; font-size: 0.9rem; }
 }
