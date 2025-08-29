@@ -1,5 +1,5 @@
 /* ============================
-   style.css — Beastie C (final logos sin negativo)
+   style.css — final para Beastie C
    ============================ */
 
 /* Fondo negro base */
@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Logos de fondo */
+/* Marca de agua gigante y sutil (fantasma) */
 body::before {
   content: "";
   position: fixed;
@@ -26,11 +26,13 @@ body::before {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.10; /* fantasma más visible */
-  filter: blur(12px); /* menos blur */
+  opacity: 0.06; /* más visible */
+  filter: blur(16px);
   z-index: -4;
   pointer-events: none;
 }
+
+/* Logo pequeño en esquina inferior derecha */
 body::after {
   content: "";
   position: fixed;
@@ -42,32 +44,32 @@ body::after {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.22; /* más visible */
-  filter: blur(4px) drop-shadow(0 0 14px rgba(255,0,255,0.28)); /* menos blur y sin invertir */
+  opacity: 0.24; /* más visible */
+  filter: blur(6px) drop-shadow(0 0 12px rgba(255,0,255,0.28));
   pointer-events: none;
   z-index: -3;
 }
 
-/* Header */
-header h1 { color: #ff00ff; }
-header p { color: #9933ff; }
+/* Header colors */
+header h1 { color: #ff00ff; } /* magenta */
+header p  { color: #9933ff; } /* morado */
 
-/* ========================
-   REPRODUCTOR CENTRAL
-   ======================== */
+/* ================
+   REPRODUCTOR (wrapper)
+   ================ */
 .player-wrapper {
   position: relative;
   z-index: 8;
   max-width: 600px;
   margin: 40px auto;
-  padding: 24px;
-  background: rgba(0,0,0,0.55);
-  border-radius: 16px;
-  box-shadow: 0 0 70px rgba(255, 0, 255, 0.24);
+  padding: 18px;
+  background: rgba(0,0,0,0.45);
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(255, 0, 255, 0.18);
   overflow: hidden;
-  transition: all 0.3s ease;
 }
 
+/* Imagen dentro del wrapper (efectos via CSS) */
 .player-wrapper > img.player-bg {
   position: absolute;
   top: 50%;
@@ -75,122 +77,152 @@ header p { color: #9933ff; }
   transform: translate(-50%, -50%);
   width: 320px;
   height: auto;
-  opacity: 0.14;
+  opacity: 0.12;
   filter: invert(1) blur(6px) drop-shadow(0 0 30px rgba(255,0,255,0.25)) saturate(120%);
   z-index: 0;
   pointer-events: none;
   transition: opacity 240ms ease, filter 240ms ease;
 }
+
 .player-wrapper:hover > img.player-bg {
-  opacity: 0.18;
-  filter: invert(1) blur(5px) drop-shadow(0 0 50px rgba(255,0,255,0.35)) saturate(140%);
+  opacity: 0.16;
+  filter: invert(1) blur(5px) drop-shadow(0 0 40px rgba(255,0,255,0.32)) saturate(140%);
 }
 
-.player-wrapper audio,
-.player-wrapper #player {
-  position: relative;
-  z-index: 2;
-}
-
-/* Botones prev/next */
+/* Control prev/next botones */
 .control-btn {
-  background: #0f0f0f;
+  background: #222;
   color: #ff00ff;
-  border: 2px solid #ff00ff;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  border: 1px solid #444;
+  width: 44px;
+  height: 40px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.3rem;
-  font-weight: bold;
-  box-shadow: 0 0 16px rgba(255,0,255,0.6);
-  transition: all 0.25s ease;
-  margin: 0 12px;
+  transition: background 0.12s, transform 0.08s, box-shadow 0.18s;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 .control-btn:hover {
-  background: #1c1c1c;
-  transform: scale(1.2);
-  box-shadow: 0 0 30px rgba(255,0,255,0.8);
+  background: #111;
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(255,0,255,0.4);
 }
 
-/* ========================
-   PADS DE BEATS
-   ======================== */
+/* Audio nativo */
+audio {
+  width: 100%;
+  margin: 0 8px;
+}
+
+/* ====================
+   PADS (rectángulos interactivos)
+   ==================== */
 .beat-pad {
   position: relative;
   z-index: 20;
   background-color: #000;
   color: #fff;
   padding: 18px 14px;
-  margin-bottom: 16px;
-  border-radius: 10px;
+  margin-bottom: 14px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.18s, color 0.18s, transform 0.15s, box-shadow 0.2s;
+  transition: background-color 0.18s, color 0.18s, transform 0.12s;
   text-align: center;
   user-select: none;
-  box-shadow: 0 0 14px rgba(255,0,255,0.08);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.06);
 }
+
 .beat-pad:hover {
-  background-color: #1c1c1c;
+  background-color: #141414;
   color: #ff00ff;
-  transform: translateY(-4px);
-  box-shadow: 0 0 28px rgba(255,0,255,0.18);
+  transform: translateY(-3px);
 }
+
 .active-pad {
-  outline: 2px solid rgba(255,0,255,0.18);
+  outline: 2px solid rgba(255,0,255,0.14);
   transform: translateY(-4px);
-  box-shadow: 0 8px 36px rgba(255,0,255,0.1);
+  box-shadow: 0 6px 30px rgba(255,0,255,0.06);
 }
+
 .beat-pad .beat-title {
   font-weight: 600;
   letter-spacing: 0.2px;
 }
 
-/* ========================
+/* ====================
    BOTONES STREAMING / CONTACTO
-   ======================== */
+   ==================== */
 .btn-success { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-danger  { background-color: #9933ff; border-color: #9933ff; color: #000; }
 .btn-info    { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
 .btn-warning { background-color: #9933ff; border-color: #9933ff; color: #000; }
-.btn-success:hover, .btn-danger:hover, .btn-info:hover, .btn-warning:hover { opacity: 0.95; }
 
-#current-beat { color: #ff00ff; font-size: 1.06rem; margin-top: 12px; font-weight: 600; text-align: center; }
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-warning:hover {
+  opacity: 0.95;
+}
 
-/* ========================
+/* Texto del beat actual */
+#current-beat {
+  color: #ff00ff;
+  font-size: 1.06rem;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ====================
    RESPONSIVE
-   ======================== */
+   ==================== */
 @media (max-width: 768px) {
-  .player-wrapper { max-width: 95%; padding: 20px; margin: 20px auto; }
-  .player-wrapper > img.player-bg { width: 220px; opacity: 0.14; }
-  .beat-pad { padding: 16px; margin-bottom: 14px; }
+  .player-wrapper { max-width: 95%; padding: 14px; margin: 20px auto; }
+  .player-wrapper > img.player-bg {
+    width: 220px;
+    filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28));
+    opacity: 0.12;
+  }
+  .beat-pad { padding: 14px; margin-bottom: 12px; }
+  /* Botones streaming apilados */
+  section.text-center a.btn {
+    display: block !important;
+    width: 90% !important;
+    margin: 6px auto !important;
+  }
 }
 
 @media (max-width: 480px) {
-  .player-wrapper > img.player-bg { width: 180px; opacity: 0.16; }
-  .beat-pad { padding: 14px; font-size: 1rem; margin-bottom: 14px; }
-
-  section.text-center a.btn {
-    display: block !important;
-    width: 90%;
-    margin: 12px auto !important;
-    font-size: 1.05rem;
-  }
-
-  .control-btn {
-    width: 48px;
-    height: 48px;
-    font-size: 1.2rem;
-    margin: 0 10px;
-  }
+  .player-wrapper > img.player-bg { width: 180px; opacity: 0.10; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
+  .beat-pad { padding: 12px; font-size: 0.95rem; }
+  section.text-center a.btn { width: 95% !important; font-size: 0.92rem; margin: 6px auto !important; }
 }
 
-@media (max-width: 420px) {
-  .player-wrapper > img.player-bg { width: 160px; opacity: 0.18; }
-  .beat-pad { padding: 12px; font-size: 0.95rem; margin-bottom: 12px; }
-  section.text-center a.btn { width: 95%; font-size: 0.95rem; margin: 8px auto !important; }
-  .control-btn { width: 44px; height: 44px; font-size: 1.15rem; }
+/* ========================
+   PERSONALIZAR BARRA DE AUDIO
+   ======================== */
+audio::-webkit-media-controls-panel {
+    background: rgba(20,20,20,0.85) !important;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255,0,255,0.25);
 }
+audio::-webkit-media-controls-timeline {
+    background: #333 !important;
+    border-radius: 6px;
+}
+audio::-webkit-media-controls-thumb {
+    background: #ff00ff !important;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+}
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-pause-button {
+    background-color: #ff00ff !important;
+    border-radius: 50%;
+}
+audio::-moz-range-track { background: #333; }
+audio::-moz-range-thumb { background: #ff00ff; border-radius: 50%; }
