@@ -1,0 +1,194 @@
+/* ============================
+   style.css — final para Beastie C
+   ============================ */
+
+/* Fondo negro base */
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Marca de agua gigante y muy sutil (opcional) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  height: 65%;
+  background-image: url('img/raccrecc.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.03;
+  filter: blur(24px);
+  z-index: -4;
+  pointer-events: none;
+}
+
+/* Logo pequeño en esquina inferior derecha (sutil) */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 150px;
+  height: 150px;
+  background-image: url('img/raccrecc.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.14;
+  filter: blur(6px) drop-shadow(0 0 12px rgba(255,0,255,0.28));
+  pointer-events: none;
+  z-index: -3;
+}
+
+/* Header colors */
+header h1 { color: #ff00ff; } /* magenta */
+header p  { color: #9933ff; } /* morado */
+
+/* ================
+   REPRODUCTOR (wrapper)
+   ================ */
+.player-wrapper {
+  position: relative;
+  z-index: 8;                 /* reproductor por encima de watermark */
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 18px;
+  background: rgba(0,0,0,0.45);  /* deja entrever la imagen detrás */
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(255, 0, 255, 0.18); /* glow general del container */
+  overflow: hidden;
+}
+
+/* Imagen dentro del wrapper (visible dentro del glow, con efectos) */
+.player-wrapper > img.player-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;               /* ajusta tamaño si quieres más/menos */
+  height: auto;
+  opacity: 0.12;              /* presencia dentro del glow */
+  filter: invert(1) blur(6px) drop-shadow(0 0 30px rgba(255,0,255,0.25)) saturate(120%);
+  z-index: 0;                 /* detrás del audio y controles */
+  pointer-events: none;       /* no bloquea clicks */
+  transition: opacity 240ms ease, filter 240ms ease;
+}
+
+/* Aseguramos que el audio y controles queden por encima */
+.player-wrapper audio,
+.player-wrapper #player {
+  position: relative;
+  z-index: 2;
+}
+
+/* intensificar glow al hover (opcional) */
+.player-wrapper:hover > img.player-bg {
+  opacity: 0.16;
+  filter: invert(1) blur(5px) drop-shadow(0 0 40px rgba(255,0,255,0.32)) saturate(140%);
+}
+
+/* Control prev/next botones */
+.control-btn {
+  background: #000;
+  color: #fff;
+  border: 1px solid #444;
+  width: 40px;
+  height: 36px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.12s, transform 0.08s;
+}
+.control-btn:hover {
+  background: #111;
+  transform: translateY(-2px);
+}
+
+/* ================
+   PADS (rectángulos interactivos)
+   ================ */
+.beat-pad {
+  position: relative;
+  z-index: 20; /* encima de todo */
+  background-color: #000;
+  color: #fff;
+  padding: 18px 14px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.18s, color 0.18s, transform 0.12s;
+  text-align: center;
+  user-select: none;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.06);
+}
+
+.beat-pad:hover {
+  background-color: #141414;
+  color: #ff00ff; /* hover magenta */
+  transform: translateY(-3px);
+}
+
+/* Pad activo */
+.active-pad {
+  outline: 2px solid rgba(255,0,255,0.14);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 30px rgba(255,0,255,0.06);
+}
+
+/* Texto del nombre dentro del pad */
+.beat-pad .beat-title {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* ====================
+   BOTONES STREAMING / CONTACTO
+   ==================== */
+.btn-success { background-color: #ff00ff; border-color: #ff00ff; color: #000; }
+.btn-danger  { background-color: #9933ff; border-color: #9933ff; color: #000; }
+.btn-info    { background-color: #ff00ff; border-color: #ff00ff; color: #000; } /* instagram/soundcloud */
+.btn-warning { background-color: #9933ff; border-color: #9933ff; color: #000; }
+
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-warning:hover {
+  opacity: 0.95;
+}
+
+/* Texto del beat actual (reproductor) */
+#current-beat {
+  color: #ff00ff;
+  font-size: 1.06rem;
+  margin-top: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .player-wrapper { max-width: 95%; padding: 14px; margin: 20px auto; }
+  .player-wrapper > img.player-bg {
+    width: 220px;
+    filter: invert(1) blur(5px) drop-shadow(0 0 22px rgba(255,0,255,0.28));
+    opacity: 0.09;
+  }
+  .beat-pad { padding: 14px; margin-bottom: 12px; }
+}
+
+@media (max-width: 420px) {
+  .player-wrapper > img.player-bg { width: 170px; opacity: 0.07; filter: invert(1) blur(4px) drop-shadow(0 0 18px rgba(255,0,255,0.22)); }
+  .beat-pad { padding: 12px; font-size: 0.95rem; }
+}
